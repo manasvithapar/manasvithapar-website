@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-06T13:17:14.565304+00:00",
+  "updated": "2026-10-06T13:31:26.093229+00:00",
   "sourcesChecked": [
     "https://news.google.com/rss/search?q=%22Manasvi%20Thapar%22&hl=en-IN&gl=IN&ceid=IN:en",
     "https://news.google.com/rss/search?q=%22Manasvi%20Thapar%22%20site%3Ayoutube.com&hl=en-IN&gl=IN&ceid=IN:en",
@@ -7,6 +7,14 @@
   ],
   "sourceErrors": [],
   "items": [
+    {
+      "title": "Manasvi Thapar discusses AI-driven disinformation at Moscow’s Dialog about Fakes 4.0",
+      "url": "https://globalfactchecking.com/after-the-fake-gfcn-experts-assess-the-real-cost-of-disinformation/",
+      "source": "Global Fact-Checking Network",
+      "published": "2026-09-22T00:00:00+00:00",
+      "type": "news",
+      "manual": true
+    },
     {
       "title": "NewsX Expertometer | Adv Manasvi Thapar's West Bengal Election Prediction - YouTube",
       "url": "https://news.google.com/rss/articles/CBMiVkFVX3lxTFBVN1JLd2JMR0RuZlpRbzNPaTBTbmVyTVh3TFdJYWxyVVoxNnVXdXQzVURyR01tczVBb3VvZmRFTTY2bURjTXlFVmlXZ3VWa0d4UDFRWDBR?oc=5",
@@ -29,6 +37,14 @@
       "type": "news"
     },
     {
+      "title": "Manasvi Thapar’s Moscow keynote on digital fraud",
+      "url": "https://www.ahmedabadmirror.com/city-advocate-speaks-on-digital-fraud-in-russia/81901964.html",
+      "source": "Ahmedabad Mirror",
+      "published": "2025-11-03T06:00:00+05:30",
+      "type": "news",
+      "manual": true
+    },
+    {
       "title": "Will Chirag Paswan Ever Become Chief Minister of Bihar? I With Manasvi Thapar I NewsX Briefing - YouTube",
       "url": "https://news.google.com/rss/articles/CBMiVkFVX3lxTE5Bd2o0VzRYTWFqZk5Wb0VVSFdsME5nZzBEY0FrdDVGZVFFdmRUcDlYbTVVUm5GYnhLNmp1ZnNFX3NmNGJzZ0tScHlsM1l3T1JPUnNrcnVn?oc=5",
       "source": "YouTube",
@@ -41,6 +57,14 @@
       "source": "YouTube",
       "published": "2025-08-17T11:07:25+00:00",
       "type": "news"
+    },
+    {
+      "title": "Manasvi Thapar on the BJP national president election — The Oneindia Show",
+      "url": "https://hindi.oneindia.com/videos/bjp-national-president-election-4237288.html",
+      "source": "Oneindia Hindi",
+      "published": "2025-04-18T09:20:00+05:30",
+      "type": "news",
+      "manual": true
     },
     {
       "title": "Adv. Manasvi Thapar Breaks Down Rekha Gupta’s Historic Rise as Delhi CM | NewsX - YouTube",
@@ -189,6 +213,22 @@
       "source": "YouTube",
       "published": "2018-05-21T14:59:32+00:00",
       "type": "news"
+    },
+    {
+      "title": "Nirma University: Manasvi Thapar discusses innovation and entrepreneurship in law",
+      "url": "https://nirmawebsite.s3.ap-south-1.amazonaws.com/wp-content/uploads/2019/04/Final-27-News-Letter-December-2016_24112017_060145PM.pdf#page=49",
+      "source": "Nirma University newsletter — archival coverage",
+      "published": "2016-12-27T00:00:00+05:30",
+      "type": "news",
+      "manual": true
+    },
+    {
+      "title": "Representing India at Global Digital Forum 2025 — Manasvi Thapar’s update",
+      "url": "https://www.linkedin.com/posts/manasvithapar_mariazakharova-indialeads-gdf2025-activity-7345793277150879744-fEXw",
+      "source": "Manasvi Thapar on LinkedIn",
+      "published": "",
+      "type": "news",
+      "manual": true
     }
   ]
 }
