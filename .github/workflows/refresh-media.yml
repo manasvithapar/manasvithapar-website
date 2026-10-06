@@ -17,7 +17,9 @@ jobs:
   refresh:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
+        with:
+          fetch-depth: 0
       - name: Refresh every 48 hours, or immediately for manual updates
         env:
           EVENT_NAME: ${{ github.event_name }}
@@ -40,5 +42,6 @@ jobs:
           git add data/media.json
           if ! git diff --cached --quiet; then
             git commit -m 'Refresh public news and video coverage'
+            git pull --rebase origin main
             git push
           fi
