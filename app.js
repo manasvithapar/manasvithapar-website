@@ -32,3 +32,17 @@ const menu=document.querySelector('.menu');const nav=document.querySelector('nav
     if (platform) logo(heading, platform);
   });
 })();
+
+/* Instagram profile link, alongside the other social platform logos. */
+document.querySelectorAll('.utility .wrap > div, .social').forEach(group => {
+  if (group.querySelector('a[href*="instagram.com"]')) return;
+  const link = document.createElement('a');
+  link.href = 'https://www.instagram.com/manasvithapar/';
+  link.target = '_blank';
+  link.rel = 'noopener';
+  link.setAttribute('aria-label', 'Instagram');
+  link.title = 'Instagram';
+  link.style.cssText = 'display:inline-flex;align-items:center;justify-content:center;min-width:44px;min-height:44px;margin-left:0;padding:8px;border-bottom:0';
+  link.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true" focusable="false"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg>';
+  group.append(link);
+});
