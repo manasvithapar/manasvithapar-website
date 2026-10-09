@@ -8,7 +8,8 @@
     const data=await response.json();
     status.textContent=data.updated?'Last refreshed '+new Date(data.updated).toLocaleDateString('en-IN',{day:'numeric',month:'long',year:'numeric'})+'. Sources checked every two days.':'Coverage will appear after the first scheduled refresh.';
     if(!data.items.length){host.textContent='More coverage is on its way. Explore the featured video and social channels below.';return;}
-    for(const item of data.items.slice(0,30)){
+    const limit=Math.min(30,Math.max(1,Number(host.dataset.limit)||30));
+    for(const item of data.items.slice(0,limit)){
       let url;try{url=new URL(item.url);if(url.protocol!=='https:')continue;}catch{continue;}
       const card=document.createElement('article');card.className='coverage-card';
       if(item.videoId&&/^[A-Za-z0-9_-]{11}$/.test(item.videoId)){
