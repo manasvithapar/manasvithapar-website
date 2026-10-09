@@ -29,3 +29,34 @@
 .home-motion .journey .milestone::after{transform:scaleY(1);transition:none}
 .home-motion .card:hover,.home-motion .card:hover>img,.home-motion .photo:hover img,.home-motion .button:hover{transform:none}
 }
+
+/* Photo journey and editorial homepage. */
+.photo-journey{grid-template-columns:1fr;gap:28px;max-width:1050px;margin:auto}
+.home-motion .photo-journey .milestone,.photo-journey .milestone{display:grid;grid-template-columns:1fr 1fr;gap:0;padding:0;border:1px solid var(--line);border-radius:16px;overflow:hidden;background:white}
+.home-motion .photo-journey .milestone::before,.home-motion .photo-journey .milestone::after{content:none}
+.journey-photo{margin:0;position:relative;overflow:hidden;min-height:280px;background:var(--navy)}
+.journey-photo img{width:100%;height:100%;min-height:280px;aspect-ratio:8/5;object-fit:cover}
+.journey-photo figcaption{position:absolute;bottom:0;left:0;right:0;padding:25px 20px 12px;color:white;background:linear-gradient(transparent,#071d34e6);font-size:12px}
+.journey-story{padding:38px;align-self:center}
+.journey-year{display:block;font:800 36px/1.2 Manrope,sans-serif;color:var(--blue);margin-bottom:20px}
+.photo-journey .milestone h3{font-size:25px}
+.perspective-grid{display:grid;grid-template-columns:1.4fr 1fr;gap:28px}
+.perspective-grid .video-feature{display:flex;flex-direction:column;align-items:stretch;gap:0;overflow:hidden;border-radius:16px;background:var(--navy);color:white}
+.perspective-grid .video-feature>div{padding:30px}
+.perspective-grid .video-feature p:not(.eyebrow){color:#c8d9ea}
+.perspective-grid .video-feature .eyebrow,.perspective-grid .video-feature .text-link{color:#c8d9ea}
+.perspective-stack{display:grid;gap:24px}
+.perspective-card{padding:30px;border:1px solid var(--line);border-radius:16px;background:var(--pale)}
+.perspective-card h3{font-size:23px}
+.perspective-card h3 a:hover{text-decoration:underline}
+.perspective-source,.perspective-card time{font-size:13px;color:var(--muted)}
+.perspective-card .text-link{display:table;margin-top:20px}
+.latest-news-section{background:linear-gradient(135deg,#f2f6fa,#e8f0f7)}
+.homepage-coverage{grid-template-columns:1.2fr 1fr 1fr}
+.homepage-coverage .coverage-card{display:flex;flex-direction:column;border-radius:16px;padding:28px;transition:transform 220ms ease,box-shadow 220ms ease}
+.homepage-coverage .coverage-card:first-child{background:var(--navy);color:white;border-color:var(--navy)}
+.homepage-coverage .coverage-card:first-child h3 a,.homepage-coverage .coverage-card:first-child .eyebrow,.homepage-coverage .coverage-card:first-child time{color:white}
+.homepage-coverage .coverage-card time{margin-top:auto;padding-top:20px}
+@media(hover:hover) and (prefers-reduced-motion:no-preference){.homepage-coverage .coverage-card:hover{transform:translateY(-4px);box-shadow:0 12px 28px #092a5112}}
+@media(max-width:850px){.perspective-grid{grid-template-columns:1fr}.perspective-stack{grid-template-columns:1fr 1fr}.homepage-coverage{grid-template-columns:1fr}.journey-story{padding:26px}}
+@media(max-width:600px){.home-motion .photo-journey .milestone,.photo-journey .milestone{grid-template-columns:1fr}.journey-photo,.journey-photo img{min-height:0}.journey-photo img{height:230px;aspect-ratio:auto}.perspective-stack{grid-template-columns:1fr}.perspective-card{padding:24px}.journey-year{font-size:30px}}
