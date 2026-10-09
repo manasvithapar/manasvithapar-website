@@ -9,3 +9,23 @@
 
 .logo-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:20px}.logo-tile{min-height:170px;padding:28px 24px 20px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:24px;border:1px solid #dce2e9;border-radius:8px;background:white;text-decoration:none;transition:transform .18s,border-color .18s}.logo-tile:hover{transform:translateY(-3px);border-color:#d29443}.logo-tile:focus-visible{outline:3px solid #d29443;outline-offset:3px}.logo-tile>img{max-width:210px;width:auto;height:82px;object-fit:contain}.logo-caption{font-size:14px;font-weight:600;color:#24364b;text-align:center}.logo-text{font-size:25px;font-weight:800;color:#1e5e48;text-align:center}.will-logo{display:flex;align-items:center;gap:10px;height:82px}.will-logo img{width:44px;height:44px}.will-logo strong{font-size:30px;color:#18181f}.will-logo strong span{color:#8c3b45}@media(max-width:700px){.logo-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.logo-tile{padding:20px 12px;min-height:150px}.logo-tile>img{max-width:150px;height:65px}.will-logo strong{font-size:24px}}@media(max-width:400px){.logo-grid{grid-template-columns:1fr}}
 .logo-tile>img[src*="veriscope"]{width:210px;height:82px;object-fit:cover;object-position:center}
+
+/* Homepage photo and journey polish. Motion never hides content by default. */
+.home-motion .card{overflow:hidden;border-radius:12px;transition:transform 250ms ease,box-shadow 250ms ease}
+.home-motion .card>img{transition:transform 300ms cubic-bezier(.22,1,.36,1)}
+.home-motion .about-split>div:first-child{overflow:hidden;border-radius:18px}
+.home-motion .photo{border-radius:10px}
+.home-motion .journey .milestone{position:relative;padding-left:18px;border-left:2px solid var(--line)}
+.home-motion .journey .milestone::before{content:"";position:absolute;left:-5px;top:28px;width:8px;height:8px;background:var(--orange);border-radius:50%}
+.home-motion .journey .milestone::after{content:"";position:absolute;left:-2px;top:28px;bottom:14px;width:2px;background:var(--orange);transform:scaleY(0);transform-origin:top;transition:transform 600ms cubic-bezier(.22,1,.36,1)}
+.home-motion .journey .milestone-seen::after{transform:scaleY(1)}
+@media(hover:hover) and (pointer:fine) and (prefers-reduced-motion:no-preference){
+.home-motion .card:hover>img{transform:scale(1.025)}
+.home-motion .photo:hover img{transform:scale(1.035)}
+.home-motion .button{transition:transform 200ms ease,background-color 200ms ease,box-shadow 200ms ease}
+.home-motion .button:hover{transform:translateY(-2px);box-shadow:0 8px 20px #092a5120}
+}
+@media(prefers-reduced-motion:reduce){
+.home-motion .journey .milestone::after{transform:scaleY(1);transition:none}
+.home-motion .card:hover,.home-motion .card:hover>img,.home-motion .photo:hover img,.home-motion .button:hover{transform:none}
+}
