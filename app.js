@@ -11,8 +11,9 @@ const menu=document.querySelector('.menu');const nav=document.querySelector('nav
   function logo(node, platform) {
     const icon = logos[platform];
     node.setAttribute('aria-label', icon.label);
-    node.setAttribute('title', icon.label);
-    node.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="22" height="22" fill="currentColor" aria-hidden="true" focusable="false"><path d="' + icon.path + '"/></svg>';
+    node.removeAttribute('title');
+    node.textContent = '';
+    node.insertAdjacentHTML('beforeend', '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="22" height="22" fill="currentColor" aria-hidden="true" focusable="false"><path d="' + icon.path + '"/></svg>');
     node.style.display = 'inline-flex';
     node.style.alignItems = 'center';
     node.style.justifyContent = 'center';
@@ -23,7 +24,7 @@ const menu=document.querySelector('.menu');const nav=document.querySelector('nav
     node.style.borderBottom = '0';
   }
   document.querySelectorAll('.utility a, .social a').forEach(link => {
-    const host = new URL(link.href).hostname.replace(/^www\\./, '');
+    const host = new URL(link.href).hostname.replace(/^www\./, '');
     const platform = {'facebook.com':'facebook', 'twitter.com':'x', 'x.com':'x', 'youtube.com':'youtube', 'linkedin.com':'linkedin'}[host];
     if (platform) logo(link, platform);
   });
@@ -41,7 +42,6 @@ document.querySelectorAll('.utility .wrap > div, .social').forEach(group => {
   link.target = '_blank';
   link.rel = 'noopener';
   link.setAttribute('aria-label', 'Instagram');
-  link.title = 'Instagram';
   link.style.cssText = 'display:inline-flex;align-items:center;justify-content:center;min-width:44px;min-height:44px;margin-left:0;padding:8px;border-bottom:0';
   link.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true" focusable="false"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg>';
   group.append(link);
