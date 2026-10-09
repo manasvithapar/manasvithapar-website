@@ -46,3 +46,50 @@ document.querySelectorAll('.utility .wrap > div, .social').forEach(group => {
   link.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true" focusable="false"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg>';
   group.append(link);
 });
+
+/* Homepage motion: progressive enhancement, native scrolling and reduced-motion support. */
+(() => {
+  if (!document.querySelector('.hero')) return;
+  document.body.classList.add('home-motion');
+  const preference = matchMedia('(prefers-reduced-motion: reduce)');
+  if (!('IntersectionObserver' in window) || !Element.prototype.animate) return;
+  const active = new Set();
+  const seen = new WeakSet();
+  const play = (element, frames, options) => {
+    if (preference.matches) return;
+    const animation = element.animate(frames, options);
+    active.add(animation);
+    animation.finished.then(() => active.delete(animation), () => active.delete(animation));
+  };
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      if (!entry.isIntersecting || seen.has(entry.target)) return;
+      seen.add(entry.target);
+      observer.unobserve(entry.target);
+      if (preference.matches || entry.target.contains(document.activeElement)) return;
+      const target = entry.target;
+      play(target, [{opacity:0,transform:'translateY(24px)'},{opacity:1,transform:'translateY(0)'}],
+        {duration:650,easing:'cubic-bezier(.22,1,.36,1)'});
+      if (target.classList.contains('milestone')) target.classList.add('milestone-seen');
+      const image = target.querySelector('img');
+      if (image && !target.classList.contains('milestone')) {
+        const reveal = () => play(image,
+          [{clipPath:'inset(0 0 10% 0)',transform:'scale(1.035)'},{clipPath:'inset(0 0 0 0)',transform:'scale(1)'}],
+          {duration:850,easing:'cubic-bezier(.22,1,.36,1)'});
+        if (image.complete && image.naturalWidth) reveal();
+        else image.addEventListener('load', reveal, {once:true});
+      }
+    });
+  }, {threshold:0.12});
+  document.querySelectorAll('.cards .card,.about-split > div:first-child,.journey .milestone,.gallery .photo,.video-feature').forEach(el => observer.observe(el));
+  const heroImage = document.querySelector('.hero > img');
+  const intro = () => play(heroImage,[{transform:'scale(1.045)'},{transform:'scale(1)'}],
+    {duration:1800,easing:'cubic-bezier(.22,1,.36,1)'});
+  if (heroImage) {
+    if (heroImage.complete && heroImage.naturalWidth) intro();
+    else heroImage.addEventListener('load', intro, {once:true});
+  }
+  preference.addEventListener('change', () => {
+    if (preference.matches) { active.forEach(animation => animation.cancel()); active.clear(); }
+  });
+})();
