@@ -20,7 +20,7 @@ jobs:
       - uses: actions/checkout@v5
         with:
           fetch-depth: 0
-      - name: Refresh every 48 hours, or immediately for manual updates
+      - name: Refresh every 24 hours, or immediately for manual updates
         env:
           EVENT_NAME: ${{ github.event_name }}
         run: |
@@ -31,7 +31,7 @@ jobs:
           if path.exists():
               timestamp = json.loads(path.read_text()).get('updated')
               if timestamp:
-                  recent = (dt.datetime.now(dt.timezone.utc) - dt.datetime.fromisoformat(timestamp)).total_seconds() < 47 * 3600
+                  recent = (dt.datetime.now(dt.timezone.utc) - dt.datetime.fromisoformat(timestamp)).total_seconds() < 23 * 3600
           if os.environ['EVENT_NAME'] != 'schedule' or not recent:
               subprocess.run(['python3', 'scripts/refresh_media.py'], check=True)
           PY
