@@ -13,6 +13,9 @@ OFFICIAL_CHANNEL_ID = 'UCWBzJDiiXeg632cU3S3Ei7A'
 CATALOG_MAX_AGE = dt.timedelta(days=28)
 PUBLISHED_TYPES = {'news', 'video'}
 VALID_TYPES = PUBLISHED_TYPES | {'social'}
+VALID_SOURCE_CLASSES = {
+    'publisher_hosted', 'broadcaster_upload', 'official_archive', 'institutional_record', 'event_organiser',
+}
 GOOGLE_DISCOVERY_HOSTS = {'news.google.com', 'www.google.com'}
 
 
@@ -77,6 +80,19 @@ def validate_record(item, label, errors, allow_discovery=False):
             errors.append(f'{label}: {field} must be an ISO date')
     if item.get('published') and not parse_timestamp(item['published']):
         errors.append(f'{label}: published must be an ISO timestamp')
+    if item.get('reviewedOn') and not is_iso_date(item['reviewedOn']):
+        errors.append(f'{label}: reviewedOn must be an ISO date')
+    source_class = item.get('sourceClass')
+    if source_class is not None and source_class not in VALID_SOURCE_CLASSES:
+        errors.append(f'{label}: sourceClass is not recognised')
+    for field in ('originalBroadcaster', 'programme'):
+        if field in item and (not isinstance(item[field], str) or not item[field].strip()):
+            errors.append(f'{label}: {field} must be non-empty when present')
+    if source_class == 'official_archive':
+        if item.get('type') != 'video':
+            errors.append(f'{label}: official_archive entries must be video records')
+        if not item.get('originalBroadcaster'):
+            errors.append(f'{label}: official_archive entries require originalBroadcaster')
 
 
 def main():

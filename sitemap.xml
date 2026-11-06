@@ -12,7 +12,10 @@
   <url>
     <loc>https://manasvithapar.com/media/</loc>
   </url>
-  <!-- media-archive:pages:start --><!-- media-archive:pages:end -->
+  <!-- media-archive:pages:start -->
+  <url>
+    <loc>https://manasvithapar.com/media/page/2/</loc>
+  </url><!-- media-archive:pages:end -->
   <url>
     <loc>https://manasvithapar.com/initiatives/</loc>
   </url>

@@ -19,6 +19,13 @@ SITE_URL = 'https://manasvithapar.com'
 MEDIA_URL = f'{SITE_URL}/media/'
 GOOGLE_DISCOVERY_HOSTS = {'news.google.com', 'www.google.com'}
 PUBLISHED_TYPES = {'news', 'video'}
+SOURCE_CLASS_LABELS = {
+    'publisher_hosted': 'Publisher-hosted coverage',
+    'broadcaster_upload': 'Broadcaster upload',
+    'official_archive': 'Official archive',
+    'institutional_record': 'Institutional record',
+    'event_organiser': 'Event-organiser record',
+}
 HOME_LIMIT = 3
 PAGE_SIZE = 24
 
@@ -83,8 +90,27 @@ def format_date(value):
 
 def source_label(item):
     if item.get('source') == 'Official YouTube channel':
+        broadcaster = str(item.get('originalBroadcaster', '')).strip()
+        if item.get('sourceClass') == 'official_archive' and broadcaster:
+            return f'YouTube · Official archive of a {broadcaster} appearance'
         return 'YouTube · Official channel upload'
     return str(item['source'])
+
+
+def coverage_context(item):
+    context = []
+    source_class = item.get('sourceClass')
+    if source_class in SOURCE_CLASS_LABELS:
+        context.append(SOURCE_CLASS_LABELS[source_class])
+    broadcaster = str(item.get('originalBroadcaster', '')).strip()
+    if broadcaster and not (item.get('source') == 'Official YouTube channel' and source_class == 'official_archive'):
+        context.append(f'Original broadcaster: {broadcaster}')
+    programme = str(item.get('programme', '')).strip()
+    if programme:
+        context.append(f'Programme: {programme}')
+    if not context:
+        return ''
+    return ''.join(f'<p class="coverage-context">{html.escape(value, quote=True)}</p>' for value in context)
 
 
 def card(item):
@@ -105,10 +131,12 @@ def card(item):
         label = 'Official upload' if item.get('source') == 'Official YouTube channel' else 'Published'
         dates.append(f'<time datetime="{published.isoformat()}">{label}: {format_date(published)}</time>')
     metadata = f'<div class="coverage-meta">{"".join(dates)}</div>' if dates else ''
+    context = coverage_context(item)
     return ''.join((
         '<article class="coverage-card">',
         f'<p class="eyebrow">{source}</p>',
         f'<h3><a href="{url}" target="_blank" rel="noopener noreferrer">{title}</a></h3>',
+        context,
         metadata,
         '</article>',
     ))
@@ -191,7 +219,7 @@ def render_schema(items, page_number, total_pages):
         '@id': f'{url}#collection',
         'url': url,
         'name': 'Manasvi Thapar in the Media' if page_number == 1 else f'Manasvi Thapar in the Media — Page {page_number}',
-        'description': 'Source-linked coverage and official-channel uploads featuring Manasvi Thapar.',
+        'description': 'Source-linked broadcaster, publisher, institutional and official-channel records featuring Manasvi Thapar.',
         'about': {'@id': f'{SITE_URL}/#person'},
         'mainEntity': {
             '@type': 'ItemList',
@@ -218,10 +246,13 @@ def with_page_metadata(document, page_number, total_pages):
     url = archive_url(page_number)
     if page_number == 1:
         title = 'Manasvi Thapar in the Media | News, Interviews & Appearances'
-        description = 'Selected news coverage, interviews and public appearances featuring Manasvi Thapar, with links to original publisher sources.'
+        description = 'Selected broadcaster, publisher, institutional and official-channel records featuring Manasvi Thapar, with original-source links.'
     else:
         title = f'Manasvi Thapar in the Media — Page {page_number} | Source-linked appearances'
-        description = f'Source-linked coverage and official-channel uploads featuring Manasvi Thapar — page {page_number} of {total_pages}.'
+        description = (
+            f'Source-linked broadcaster, publisher, institutional and official-channel records featuring Manasvi Thapar '
+            f'— page {page_number} of {total_pages}.'
+        )
     escaped_title = html.escape(title, quote=True)
     escaped_description = html.escape(description, quote=True)
     document = replace_one(document, r'<title>.*?</title>', f'<title>{escaped_title}</title>', 'title')
@@ -249,6 +280,8 @@ def with_page_metadata(document, page_number, total_pages):
         rf'\1{url}\2',
         'Open Graph URL',
     )
+    # A re-render must replace, rather than accumulate, pagination relationships.
+    document = re.sub(r'<link rel="(?:prev|next)" href="[^"]+">', '', document)
     relation_links = ''
     if page_number > 1:
         relation_links += f'<link rel="prev" href="{archive_url(page_number - 1)}">'
@@ -279,7 +312,7 @@ def page_content(items, page_number, total_pages):
         '<h1>Source-linked appearances</h1>'
         '<p>Original publisher links and official-channel uploads, organised for reference.</p></div></section>',
         '<section class="wrap section" aria-labelledby="coverage-heading"><div class="section-head"><div>'
-        '<p class="eyebrow">NEWS &amp; APPEARANCES</p><h2 id="coverage-heading">Source-linked coverage</h2>'
+        '<p class="eyebrow">NEWS &amp; APPEARANCES</p><h2 id="coverage-heading">Source-linked records</h2>'
         '</div></div>',
         f'<p id="coverage-status" role="status">Archive page {page_number} of {total_pages}.</p>',
         f'<div id="latest-coverage" class="coverage-grid">{"".join(card(item) for item in items)}</div>',

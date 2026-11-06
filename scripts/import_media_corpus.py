@@ -4,6 +4,7 @@ Usage:
   python3 scripts/import_media_corpus.py path/to/approved-media.csv [--dry-run]
 """
 import csv
+import datetime as dt
 import json
 import re
 import sys
@@ -12,8 +13,14 @@ from urllib.parse import parse_qs, urlsplit
 
 ROOT = Path(__file__).resolve().parents[1]
 MANUAL = ROOT / 'data' / 'manual-media.json'
-REQUIRED_COLUMNS = {'source_url', 'source_type', 'publisher', 'title', 'reviewed'}
+GOOGLE_DISCOVERY_HOSTS = {'news.google.com', 'www.google.com'}
+REQUIRED_COLUMNS = {
+    'source_url', 'source_type', 'source_class', 'publisher', 'title', 'reviewed', 'reviewed_on', 'reviewer',
+}
 VALID_TYPES = {'news', 'video'}
+VALID_SOURCE_CLASSES = {
+    'publisher_hosted', 'broadcaster_upload', 'official_archive', 'institutional_record', 'event_organiser',
+}
 
 
 def clean(value):
@@ -25,19 +32,49 @@ def valid_url(value):
     return parsed.scheme == 'https' and bool(parsed.netloc)
 
 
+def discovery_url(value):
+    return (urlsplit(value).hostname or '').lower() in GOOGLE_DISCOVERY_HOSTS
+
+
+def iso_date(value):
+    try:
+        dt.date.fromisoformat(value)
+        return True
+    except ValueError:
+        return False
+
+
+def iso_timestamp(value):
+    if not value:
+        return True
+    try:
+        dt.datetime.fromisoformat(value.replace('Z', '+00:00'))
+        return True
+    except ValueError:
+        try:
+            dt.date.fromisoformat(value)
+            return True
+        except ValueError:
+            return False
+
+
 def video_id_from_url(url):
     parsed = urlsplit(url)
     host = (parsed.hostname or '').lower()
-    if host in {'youtube.com', 'www.youtube.com', 'm.youtube.com'} and parsed.path == '/watch':
-        return parse_qs(parsed.query).get('v', [''])[0]
+    if host in {'youtube.com', 'www.youtube.com', 'm.youtube.com'}:
+        if parsed.path == '/watch':
+            return parse_qs(parsed.query).get('v', [''])[0]
+        parts = [part for part in parsed.path.split('/') if part]
+        if len(parts) >= 2 and parts[0] in {'shorts', 'live'}:
+            return parts[1]
     if host == 'youtu.be':
         return parsed.path.strip('/').split('/')[0]
     return ''
 
 
 def source_key(item):
-    video_id = item.get('videoId')
-    if video_id:
+    video_id = item.get('videoId') or video_id_from_url(item['url'])
+    if re.fullmatch(r'[A-Za-z0-9_-]{11}', video_id or ''):
         return f'youtube:{video_id}'
     return item['url'].split('#', 1)[0]
 
@@ -45,26 +82,56 @@ def source_key(item):
 def row_to_item(row, line_number):
     url = clean(row.get('source_url'))
     kind = clean(row.get('source_type')).lower()
+    source_class = clean(row.get('source_class')).lower()
     publisher = clean(row.get('publisher'))
     title = clean(row.get('title'))
-    if not valid_url(url):
-        raise ValueError(f'Row {line_number}: source_url must be an HTTPS URL')
+    reviewed_on = clean(row.get('reviewed_on'))
+    reviewer = clean(row.get('reviewer'))
+    if not valid_url(url) or discovery_url(url):
+        raise ValueError(f'Row {line_number}: source_url must be a direct, non-Google HTTPS URL')
     if kind not in VALID_TYPES:
         raise ValueError(f'Row {line_number}: source_type must be news or video')
+    if source_class not in VALID_SOURCE_CLASSES:
+        raise ValueError(f'Row {line_number}: source_class is not recognised')
     if not publisher or not title:
         raise ValueError(f'Row {line_number}: publisher and title are required')
-    item = {'title': title, 'url': url, 'source': publisher, 'type': kind}
+    if not iso_date(reviewed_on):
+        raise ValueError(f'Row {line_number}: reviewed_on must be an ISO date')
+    if not reviewer:
+        raise ValueError(f'Row {line_number}: reviewer is required')
+
+    original_broadcaster = clean(row.get('original_broadcaster'))
+    if source_class == 'official_archive':
+        if kind != 'video':
+            raise ValueError(f'Row {line_number}: official_archive entries must be video records')
+        if not original_broadcaster:
+            raise ValueError(f'Row {line_number}: official_archive entries require original_broadcaster')
+
+    item = {
+        'title': title,
+        'url': url,
+        'source': publisher,
+        'type': kind,
+        'sourceClass': source_class,
+        'reviewedOn': reviewed_on,
+    }
     optional_fields = {
         'display_title': 'displayTitle',
         'appearance_date': 'appearanceDate',
+        'date_stated_in_title': 'dateStatedInTitle',
         'published': 'published',
         'original_broadcaster': 'originalBroadcaster',
         'programme': 'programme',
     }
     for column, field in optional_fields.items():
         value = clean(row.get(column))
-        if value:
-            item[field] = value
+        if not value:
+            continue
+        if field in {'appearanceDate', 'dateStatedInTitle'} and not iso_date(value):
+            raise ValueError(f'Row {line_number}: {column} must be an ISO date')
+        if field == 'published' and not iso_timestamp(value):
+            raise ValueError(f'Row {line_number}: published must be an ISO date or timestamp')
+        item[field] = value
     video_id = clean(row.get('video_id')) or video_id_from_url(url)
     if video_id:
         if not re.fullmatch(r'[A-Za-z0-9_-]{11}', video_id):

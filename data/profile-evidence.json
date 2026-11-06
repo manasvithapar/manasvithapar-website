@@ -1,5 +1,5 @@
 {
-  "lastReviewed": "2026-11-03",
+  "lastReviewed": "2026-11-06",
   "records": [
     {
       "id": "candour-founder",
@@ -82,6 +82,28 @@
       "publisher": "Global Fact-Checking Network",
       "sourceType": "event organiser publication",
       "lastChecked": "2026-11-03",
+      "status": "source-linked"
+    },
+    {
+      "id": "republic-world-broadcaster-uploads",
+      "claim": "Direct Republic World broadcaster upload record",
+      "supportedWording": "Republic World's own YouTube channel has published videos featuring Manasvi Thapar, including Legal Eagle With Rhythm and Burning Question.",
+      "sourceUrl": "https://www.youtube.com/watch?v=FGkXRTsudqc",
+      "publisher": "Republic World",
+      "sourceType": "broadcaster-hosted video",
+      "sourceDate": "2021-02-06",
+      "lastChecked": "2026-11-06",
+      "status": "source-linked"
+    },
+    {
+      "id": "newsx-broadcaster-uploads",
+      "claim": "Direct NewsX broadcaster upload record",
+      "supportedWording": "NewsX Live's own YouTube channel has published selected appearances by Manasvi Thapar, including Expert-O-Meter programmes.",
+      "sourceUrl": "https://www.youtube.com/watch?v=Ze7YFdEpNxc",
+      "publisher": "NewsX Live",
+      "sourceType": "broadcaster-hosted video",
+      "sourceDate": "2025-01-29",
+      "lastChecked": "2026-11-06",
       "status": "source-linked"
     }
   ]
