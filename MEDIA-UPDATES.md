@@ -1,6 +1,6 @@
 # News and video updates
 
-The Media page is a static, source-linked archive generated from `data/media.json`. GitHub Actions refreshes public feeds daily, renders the archive into the homepage and Media page, and Cloudflare Pages deploys each commit. Run the workflow manually to refresh sooner.
+The Media page is a static, source-linked archive generated from `data/media.json`. GitHub Actions refreshes public feeds daily, renders the archive into the homepage and Media page, and Cloudflare Pages deploys each commit. Run the workflow manually to refresh sooner. The archive is paginated into 24-record static pages when it exceeds one page; every generated page has its own canonical URL, navigation, `ItemList` markup and sitemap entry.
 
 Only direct publisher, broadcaster or official-channel URLs are published in the archive. Google News links are retained separately in `data/media-candidates.json` as discovery signals and are not shown until a direct source URL is confirmed. This keeps the public archive attributable and avoids presenting Google redirect URLs as evidence.
 
@@ -20,4 +20,8 @@ Schedule runs can be delayed by GitHub. Check Actions > Refresh news and videos 
 
 For the historical 1,000+ appearance backlog, use `data/media-corpus-template.csv` as the review sheet. Each row needs an original source URL and a human-verified title; it can then be imported with `python3 scripts/import_media_corpus.py path/to/approved.csv`. The importer accepts only reviewed rows, keeps the original link, and does not upload or copy broadcaster videos.
 
-The official YouTube uploads collection is `https://www.youtube.com/playlist?list=UUWBzJDiiXeg632cU3S3Ei7A`. Its RSS feed covers only recent uploads. A future full-channel import should use a restricted `YOUTUBE_API_KEY` in GitHub Actions to read the public uploads playlist; never commit an API key or treat YouTube upload dates as broadcast dates.
+The official YouTube uploads collection is `https://www.youtube.com/playlist?list=UUWBzJDiiXeg632cU3S3Ei7A`. Its RSS feed covers only recent uploads. `scripts/sync_official_youtube.py` is a prepared, public-metadata-only full-channel importer. It resolves the channel's uploads playlist through the YouTube Data API, reads public videos only, and validates the exact official channel ID. It does not download, copy or re-upload video files.
+
+The full API catalog is intentionally **not enabled** in the current GitHub commit-to-deploy workflow. YouTube's data policies require refresh or deletion of public API metadata within 30 days, while Git history cannot provide that deletion lifecycle. Before any `YOUTUBE_API_KEY` is created or used, the full-catalog build must run in a non-versioned deployment environment, use the `/privacy/` disclosure, show clear YouTube attribution, and have a documented refresh/delete process. `data/official-youtube.json` is ignored by Git for this reason. Do not add an API key to source code, a URL, a chat message or an ordinary repository variable.
+
+For manually reviewed records, `appearanceDate` is reserved for a human-verified appearance date. A date found only in an official upload title is shown as “Date stated in video title,” never asserted as a broadcast date. Official YouTube cards are labelled “YouTube · Official channel upload”; they are not counted as independent broadcaster coverage.

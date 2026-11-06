@@ -1,0 +1,88 @@
+{
+  "lastReviewed": "2026-11-03",
+  "records": [
+    {
+      "id": "candour-founder",
+      "claim": "Founder of Candour Legal and advocate",
+      "supportedWording": "Candour Legal identifies Manasvi Thapar as an advocate and its founder.",
+      "sourceUrl": "https://candourlegal.com/lawyer/manasvi-thapar/",
+      "publisher": "Candour Legal",
+      "sourceType": "organisation profile",
+      "lastChecked": "2026-11-03",
+      "status": "source-linked"
+    },
+    {
+      "id": "tedx-hlcc-2018",
+      "claim": "TEDxHLCC speaker",
+      "supportedWording": "TED lists Manasvi Thapar's TEDxHLCC talk, “What others don't teach you, you teach yourself,” from February 2018.",
+      "sourceUrl": "https://www.ted.com/talks/manasvi_thapar_what_others_don_t_teach_you_you_teach_yourself",
+      "publisher": "TED",
+      "sourceType": "event record",
+      "sourceDate": "2018-02",
+      "lastChecked": "2026-11-03",
+      "status": "source-linked"
+    },
+    {
+      "id": "nirma-speaking",
+      "claim": "University speaking record",
+      "supportedWording": "Nirma University newsletters document Manasvi Thapar's university talks and alumni connection.",
+      "sourceUrl": "https://nirmawebsite.s3.ap-south-1.amazonaws.com/wp-content/uploads/sites/19/2019/05/Vol40.pdf",
+      "publisher": "Nirma University",
+      "sourceType": "institutional publication",
+      "lastChecked": "2026-11-03",
+      "status": "source-linked"
+    },
+    {
+      "id": "skips-guest-lecture",
+      "claim": "Guest lecture on entrepreneurship and legal practice",
+      "supportedWording": "SKIPS published a record of a guest lecture by Manasvi Thapar.",
+      "sourceUrl": "https://www.skips.in/blog/skope-guest-lecture-mr-manasvi-thapar/",
+      "publisher": "St. Kabir Institute of Professional Studies",
+      "sourceType": "institutional publication",
+      "lastChecked": "2026-11-03",
+      "status": "source-linked"
+    },
+    {
+      "id": "global-longlife-director",
+      "claim": "Independent Director, Global Longlife Hospital & Research Ltd.",
+      "supportedWording": "The company's FY 2024–25 annual report lists Mr Manasvi Thapar as a Non-Executive Independent Director; this is date-qualified and should be rechecked annually.",
+      "sourceUrl": "https://www.bseindia.com/xml-data/corpfiling/AttachHis/af662f6d-33ff-44d0-b3f0-2c81ddf727b4.pdf",
+      "publisher": "BSE India corporate filing",
+      "sourceType": "regulatory filing",
+      "sourceDate": "2025",
+      "lastChecked": "2026-11-03",
+      "status": "source-linked"
+    },
+    {
+      "id": "citypulse-director",
+      "claim": "Independent Director, Citypulse Multiventures Limited",
+      "supportedWording": "Citypulse Multiventures lists Manasvi Manu Thapar among its board of directors as an Independent Director.",
+      "sourceUrl": "https://www.wowplex.live/BoardofDirectors.html",
+      "publisher": "Citypulse Multiventures",
+      "sourceType": "organisation page",
+      "lastChecked": "2026-11-03",
+      "status": "source-linked"
+    },
+    {
+      "id": "digital-fraud-keynote",
+      "claim": "Keynote on digital fraud and deepfakes",
+      "supportedWording": "Ahmedabad Mirror reported on Manasvi Thapar's digital-fraud keynote in 2025.",
+      "sourceUrl": "https://www.ahmedabadmirror.com/city-advocate-speaks-on-digital-fraud-in-russia/81901964.html",
+      "publisher": "Ahmedabad Mirror",
+      "sourceType": "independent news coverage",
+      "sourceDate": "2025-11-03",
+      "lastChecked": "2026-11-03",
+      "status": "source-linked"
+    },
+    {
+      "id": "gfcn-digital-dialogue",
+      "claim": "Digital-policy and disinformation forum participation",
+      "supportedWording": "Global Fact-Checking Network published a participant profile and event coverage that identify Manasvi Thapar's participation in its dialogue on disinformation.",
+      "sourceUrl": "https://globalfactchecking.com/participants/manasvi-thapar",
+      "publisher": "Global Fact-Checking Network",
+      "sourceType": "event organiser publication",
+      "lastChecked": "2026-11-03",
+      "status": "source-linked"
+    }
+  ]
+}

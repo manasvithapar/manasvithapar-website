@@ -1,0 +1,3 @@
+# YouTube Data API metadata must be refreshed or deleted on a defined lifecycle.
+# It belongs only in a non-versioned deployment build, never source-control history.
+data/official-youtube.json

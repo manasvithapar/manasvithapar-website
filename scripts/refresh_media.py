@@ -12,6 +12,7 @@ ROOT = Path(__file__).resolve().parents[1]
 DATA = ROOT / 'data'
 PUBLISHED = DATA / 'media.json'
 CANDIDATES = DATA / 'media-candidates.json'
+OFFICIAL_YOUTUBE = DATA / 'official-youtube.json'
 NAME = re.compile(r'manasvi\s+(?:m\.?\s+)?thapar|मानस्वी\s+थापर|मनस्वी\s+थापर', re.I)
 GOOGLE_DISCOVERY_HOSTS = {'news.google.com', 'www.google.com'}
 
@@ -42,8 +43,22 @@ def canonical_url(url):
     return urlunsplit((parsed.scheme.lower(), parsed.netloc.lower(), parsed.path, urlencode(params), ''))
 
 
+def youtube_video_id(url):
+    parsed = urlsplit(url)
+    host = (parsed.hostname or '').lower()
+    if host in {'youtube.com', 'www.youtube.com', 'm.youtube.com'}:
+        if parsed.path == '/watch':
+            return dict(parse_qsl(parsed.query)).get('v', '')
+        parts = [part for part in parsed.path.split('/') if part]
+        if len(parts) >= 2 and parts[0] in {'shorts', 'live'}:
+            return parts[1]
+    if host == 'youtu.be':
+        return parsed.path.strip('/').split('/')[0]
+    return ''
+
+
 def record_key(item):
-    video = item.get('videoId')
+    video = item.get('videoId') or youtube_video_id(item.get('url', ''))
     if isinstance(video, str) and re.fullmatch(r'[A-Za-z0-9_-]{11}', video):
         return f'youtube:{video}'
     return canonical_url(item['url'])
@@ -65,6 +80,12 @@ def read_json(path, fallback):
 def refresh(offline=False):
     old = read_json(PUBLISHED, {'items': []})
     old_candidates = read_json(CANDIDATES, {'items': []})
+    official_youtube = read_json(OFFICIAL_YOUTUBE, {'items': []})
+    catalog_items = official_youtube.get('items', [])
+    catalog_available = (
+        official_youtube.get('channelId') == 'UCWBzJDiiXeg632cU3S3Ei7A'
+        and isinstance(catalog_items, list)
+    )
     manual = json.loads((DATA / 'manual-media.json').read_text())
     social_urls = {
         canonical_url(item['url'])
@@ -74,7 +95,14 @@ def refresh(offline=False):
     items = {
         record_key(item): item
         for item in old.get('items', [])
-        if publishable(item) and canonical_url(item['url']) not in social_urls
+        if (
+            publishable(item)
+            and canonical_url(item['url']) not in social_urls
+            and not item.get('manual')
+            # A successful full YouTube catalog is authoritative for API-managed uploads.
+            # Manual records remain eligible below and take final precedence.
+            and not (catalog_available and item.get('managedBy') == 'youtube-data-api')
+        )
     }
     candidate_records = [*old_candidates.get('items', []), *old.get('items', [])]
     candidates = {
@@ -122,6 +150,9 @@ def refresh(offline=False):
             successful.append(url)
         except Exception as exc:
             failures.append({'feed': url, 'error': str(exc)[:300]})
+    for item in catalog_items:
+        if publishable(item):
+            items[record_key(item)] = item
     for item in manual:
         if not valid_url(item.get('url')) or not item.get('title'):
             raise ValueError('Manual media requires a title and HTTPS URL')

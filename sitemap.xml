@@ -7,8 +7,12 @@
     <loc>https://manasvithapar.com/wiki/</loc>
   </url>
   <url>
+    <loc>https://manasvithapar.com/public-profile/</loc>
+  </url>
+  <url>
     <loc>https://manasvithapar.com/media/</loc>
   </url>
+  <!-- media-archive:pages:start --><!-- media-archive:pages:end -->
   <url>
     <loc>https://manasvithapar.com/initiatives/</loc>
   </url>
@@ -17,5 +21,8 @@
   </url>
   <url>
     <loc>https://manasvithapar.com/contact-us/</loc>
+  </url>
+  <url>
+    <loc>https://manasvithapar.com/privacy/</loc>
   </url>
 </urlset>
