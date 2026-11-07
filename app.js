@@ -16,13 +16,13 @@
 
   const primaryLinks = [
     ['/', 'Home'],
-    ['/public-profile/', 'Public profile'],
-    ['/media/', 'Media archive'],
+    ['/public-profile/', 'Public record'],
+    ['/media/', 'Media'],
     ['/wiki/', 'Biography'],
-    ['/initiatives/', 'Initiatives'],
     ['/gallery/', 'Gallery'],
     ['/contact-us/', 'Contact']
   ];
+  nav.querySelector('a[href="/initiatives/"]')?.remove();
   primaryLinks.forEach(([href, label]) => {
     const link = Array.from(nav.querySelectorAll('a')).find(item => item.getAttribute('href') === href);
     if (!link) return;
