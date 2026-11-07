@@ -16,13 +16,13 @@
 
   const primaryLinks = [
     ['/', 'Home'],
-    ['/public-profile/', 'Public record'],
+    ['/wiki/', 'About'],
     ['/media/', 'Media'],
-    ['/wiki/', 'Biography'],
     ['/gallery/', 'Gallery'],
     ['/contact-us/', 'Contact']
   ];
   nav.querySelector('a[href="/initiatives/"]')?.remove();
+  nav.querySelector('a[href="/public-profile/"]')?.remove();
   primaryLinks.forEach(([href, label]) => {
     const link = Array.from(nav.querySelectorAll('a')).find(item => item.getAttribute('href') === href);
     if (!link) return;
@@ -45,10 +45,10 @@
   });
 })();
 
-/* Keep retained legacy footers aligned with the source-first site standard. */
+/* Keep retained legacy footers aligned with the personal-site framing. */
 (() => {
   document.querySelectorAll('footer div.brand > p').forEach(copy => {
-    copy.textContent = 'This official website brings together a source-linked public profile, original media records and direct social channels.';
+    copy.textContent = 'An official space for Manasvi’s work, ideas and public conversations.';
   });
 })();
 

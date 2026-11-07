@@ -1,4 +1,4 @@
-"""Render a source-linked media archive into static, crawlable pages."""
+"""Render a crawlable collection of Manasvi Thapar's media appearances."""
 import datetime as dt
 import html
 import json
@@ -219,7 +219,7 @@ def render_schema(items, page_number, total_pages):
         '@id': f'{url}#collection',
         'url': url,
         'name': 'Manasvi Thapar in the Media' if page_number == 1 else f'Manasvi Thapar in the Media — Page {page_number}',
-        'description': 'Source-linked broadcaster, publisher, institutional and official-channel records featuring Manasvi Thapar.',
+        'description': 'A collection of interviews, news conversations and public appearances featuring Manasvi Thapar.',
         'about': {'@id': f'{SITE_URL}/#person'},
         'mainEntity': {
             '@type': 'ItemList',
@@ -245,17 +245,17 @@ def replace_one(document, pattern, replacement, label):
 def with_page_metadata(document, page_number, total_pages):
     document = document.replace(
         '<p>Lawyer. Entrepreneur. Public Speaker.<br>TEDx Speaker. Angel Investor. Mentor.</p>',
-        '<p>Official website · source-linked public record.</p>',
+        '<p>Official website of Manasvi Thapar.</p>',
     )
     url = archive_url(page_number)
     if page_number == 1:
         title = 'Manasvi Thapar in the Media | News, Interviews & Appearances'
-        description = 'Selected broadcaster, publisher, institutional and official-channel records featuring Manasvi Thapar, with original-source links.'
+        description = 'A collection of interviews, news conversations and public appearances featuring Manasvi Thapar.'
     else:
-        title = f'Manasvi Thapar in the Media — Page {page_number} | Source-linked appearances'
+        title = f'Manasvi Thapar in the Media — Page {page_number}'
         description = (
-            f'Source-linked broadcaster, publisher, institutional and official-channel records featuring Manasvi Thapar '
-            f'— page {page_number} of {total_pages}.'
+            f'Interviews, news conversations and public appearances featuring Manasvi Thapar — '
+            f'page {page_number} of {total_pages}.'
         )
     escaped_title = html.escape(title, quote=True)
     escaped_description = html.escape(description, quote=True)
@@ -309,23 +309,22 @@ def with_page_metadata(document, page_number, total_pages):
 
 def feed_note():
     return (
-        '<p class="feed-note">Links open the original publisher or official channel. '
-        '“YouTube · Official channel upload” identifies a video hosted on Manasvi Thapar’s official YouTube channel; '
-        'it is not presented as broadcaster-hosted coverage. Dates stated in video titles are not presented as broadcast dates. '
+        '<p class="feed-note">Every entry opens the original publisher, broadcaster or official channel. '
+        'Where a video is hosted on Manasvi Thapar’s YouTube channel, its label makes that clear. '
         '<a class="text-link" href="https://www.youtube.com/playlist?list=UUWBzJDiiXeg632cU3S3Ei7A" '
-        'target="_blank" rel="noopener noreferrer">Browse the official video archive <span aria-hidden="true">↗</span></a></p>'
+        'target="_blank" rel="noopener noreferrer">Watch on YouTube <span aria-hidden="true">↗</span></a></p>'
     )
 
 
 def page_content(items, page_number, total_pages):
     return ''.join((
-        '<section class="page-banner"><div class="wrap"><p class="eyebrow">MEDIA ARCHIVE</p>'
-        '<h1>Source-linked appearances</h1>'
-        '<p>Original publisher links and official-channel uploads, organised for reference.</p></div></section>',
+        '<section class="page-banner"><div class="wrap"><p class="eyebrow">IN THE NEWS</p>'
+        '<h1>Conversations and appearances.</h1>'
+        '<p>Interviews, news conversations and public appearances from across the years.</p></div></section>',
         '<section class="wrap section" aria-labelledby="coverage-heading"><div class="section-head"><div>'
-        '<p class="eyebrow">NEWS &amp; APPEARANCES</p><h2 id="coverage-heading">Source-linked records</h2>'
+        '<p class="eyebrow">MORE TO EXPLORE</p><h2 id="coverage-heading">In the conversation.</h2>'
         '</div></div>',
-        f'<p id="coverage-status" role="status">Archive page {page_number} of {total_pages}.</p>',
+        f'<p id="coverage-status" role="status">Page {page_number} of {total_pages}.</p>',
         f'<div id="latest-coverage" class="coverage-grid">{"".join(card(item) for item in items)}</div>',
         pagination(page_number, total_pages),
         feed_note(),
@@ -343,27 +342,27 @@ def archive_shell(document):
 
 
 def media_context_body():
-    """Keep the root archive's supporting context neutral and source-led."""
+    """Keep the media page connected to the rest of the personal website."""
     return ''.join((
         '<section class="blue-section" aria-labelledby="record-context-heading"><div class="wrap section">',
-        '<div class="section-head"><div><p class="eyebrow">PUBLIC RECORD</p>',
-        '<h2 id="record-context-heading">Use the original record.</h2></div>',
-        '<a class="text-link" href="/public-profile/">Open public profile <span aria-hidden="true">↗</span></a>',
+        '<div class="section-head"><div><p class="eyebrow">MORE TO EXPLORE</p>',
+        '<h2 id="record-context-heading">The work beyond the headline.</h2></div>',
+        '<a class="text-link" href="/wiki/">About Manasvi <span aria-hidden="true">↗</span></a>',
         '</div><div class="initiative-grid">',
-        '<a class="initiative" href="/public-profile/"><img src="/assets/924b106e10f7.jpeg" ',
+        '<a class="initiative" href="/wiki/"><img src="/assets/924b106e10f7.jpeg" ',
         'alt="Portrait of Manasvi Thapar" loading="lazy" width="480" height="614"><div>',
-        '<p class="eyebrow">Source-linked profile</p><h3>Roles and work</h3>',
-        '<p>Read dated roles, talks and public-record statements alongside their original sources.</p>',
+        '<p class="eyebrow">ABOUT MANASVI</p><h3>The journey so far</h3>',
+        '<p>Learn more about Manasvi’s work across law, enterprise and public conversations.</p>',
         '</div></a>',
         '<a class="initiative" href="/media/"><img src="/assets/4c9a7b8b7959.jpeg" ',
         'alt="Manasvi Thapar speaking at TEDxHLCC" loading="lazy" width="1193" height="1800"><div>',
-        '<p class="eyebrow">Source archive</p><h3>Coverage and appearances</h3>',
-        '<p>Browse broadcaster uploads, publisher coverage and institutional records by source type.</p>',
+        '<p class="eyebrow">ON STAGE</p><h3>Talks and conversations</h3>',
+        '<p>Watch interviews, public talks and news conversations from across the years.</p>',
         '</div></a>',
         '<a class="initiative" href="/gallery/"><img src="/assets/03b6d9631bde.jpeg" ',
         'alt="Manasvi Thapar at a university engagement" loading="lazy" width="1600" height="1066"><div>',
-        '<p class="eyebrow">Selected photographs</p><h3>A curated visual archive</h3>',
-        '<p>Venue labels are used only where the supporting record is independently clear.</p>',
+        '<p class="eyebrow">MOMENTS</p><h3>Behind the scenes</h3>',
+        '<p>A selection of photographs from the journey.</p>',
         '</div></a></div></div></section>',
     ))
 
@@ -387,12 +386,37 @@ def replace_media_context(document):
     return result
 
 
+def personalise_media_root(document):
+    """Give the root media page the same human framing as the rest of the site."""
+    document = replace_one(
+        document,
+        r'<section class="page-banner"><div class="wrap"><p class="eyebrow">.*?</p><h1>.*?</h1><p>.*?</p></div></section>',
+        '<section class="page-banner"><div class="wrap"><p class="eyebrow">IN THE NEWS</p>'
+        '<h1>Conversations and appearances.</h1>'
+        '<p>Interviews, news conversations and public appearances from across the years.</p></div></section>',
+        'root media banner',
+    )
+    document = replace_one(
+        document,
+        r'<p class="eyebrow">(?:NEWS &amp; APPEARANCES|LATEST)</p><h2 id="coverage-heading">.*?</h2>',
+        '<p class="eyebrow">LATEST</p><h2 id="coverage-heading">In the conversation.</h2>',
+        'root media section heading',
+    )
+    return replace_one(
+        document,
+        r'<p id="coverage-status" role="status">.*?</p>',
+        '<p id="coverage-status" role="status">A collection of interviews, news conversations and public appearances.</p>',
+        'root media status',
+    )
+
+
 def render_root(document, records, total_pages):
     document = replace_marked(document, 'media-archive:all', ''.join(card(item) for item in records[:PAGE_SIZE]))
     document = replace_marked(document, 'media-archive:schema', render_schema(records[:PAGE_SIZE], 1, total_pages))
     document = replace_marked(document, 'media-archive:note', feed_note())
     document = replace_marked(document, 'media-archive:pagination', pagination(1, total_pages))
     document = replace_media_context(document)
+    document = personalise_media_root(document)
     return with_page_metadata(document, 1, total_pages)
 
 

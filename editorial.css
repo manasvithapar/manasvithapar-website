@@ -1,6 +1,6 @@
 /*
-  Editorial authority system
-  A restrained, evidence-first layer for the public profile and media archive.
+  Editorial personal-site system
+  A warm, human layer for Manasvi's work, ideas and media.
 */
 :root {
   --navy: #14213a;
@@ -14,7 +14,7 @@
   --paper-strong: #efebe2;
   --white: #fffefa;
   --ink-soft: #24334d;
-  --radius: 0;
+  --radius: 5px;
   --shadow: 0 18px 44px rgba(20, 33, 58, .10);
 }
 
@@ -115,10 +115,10 @@ header {
 
 nav {
   gap: 18px;
-  font-size: 11px;
+  font-size: 12px;
   font-weight: 700;
-  letter-spacing: .05em;
-  text-transform: uppercase;
+  letter-spacing: .01em;
+  text-transform: none;
 }
 
 nav a {
@@ -169,11 +169,11 @@ nav a:hover, nav a[aria-current] {
 .text-link {
   border-bottom: 1px solid currentColor;
   color: var(--ink);
-  font-size: 11px;
+  font-size: 12px;
   font-weight: 700;
-  letter-spacing: .06em;
+  letter-spacing: .01em;
   padding-bottom: 5px;
-  text-transform: uppercase;
+  text-transform: none;
   white-space: normal;
 }
 
@@ -185,12 +185,12 @@ nav a:hover, nav a[aria-current] {
 .button {
   background: var(--orange);
   border: 1px solid var(--orange);
-  border-radius: 0;
+  border-radius: var(--radius);
   color: #161b25;
-  font: 700 11px/1.1 "Public Sans", Arial, sans-serif;
-  letter-spacing: .06em;
+  font: 700 12px/1.1 "Public Sans", Arial, sans-serif;
+  letter-spacing: .01em;
   padding: 15px 18px;
-  text-transform: uppercase;
+  text-transform: none;
 }
 
 .button:hover {
@@ -342,6 +342,188 @@ nav a:hover, nav a[aria-current] {
   position: absolute;
   text-transform: uppercase;
   z-index: 1;
+}
+
+.personal-intro {
+  background: var(--paper-strong);
+  border-bottom: 1px solid var(--line);
+}
+
+.personal-intro-grid {
+  align-items: stretch;
+  display: grid;
+  grid-template-columns: minmax(260px, .68fr) minmax(0, 1.32fr);
+  min-height: 510px;
+}
+
+.personal-intro figure,
+.moments-grid figure {
+  margin: 0;
+  overflow: hidden;
+}
+
+.personal-intro figure img {
+  height: 100%;
+  min-height: 510px;
+  object-position: 50% 24%;
+  width: 100%;
+}
+
+.personal-intro-grid > div {
+  align-self: center;
+  max-width: 650px;
+  padding: clamp(54px, 8vw, 112px);
+}
+
+.personal-intro h2,
+.moments-grid h2 {
+  margin-bottom: 24px;
+  max-width: 12ch;
+}
+
+.personal-intro p:not(.eyebrow),
+.moments-grid p:not(.eyebrow) {
+  color: var(--muted);
+  font-size: 17px;
+  margin-bottom: 28px;
+}
+
+.latest-section {
+  background: var(--white);
+}
+
+.personal-coverage {
+  display: grid;
+  gap: 18px;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.homepage-coverage.personal-coverage {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.personal-coverage .coverage-card,
+.homepage-coverage.personal-coverage .coverage-card {
+  background: var(--paper);
+  border: 1px solid transparent;
+  border-radius: var(--radius);
+  box-shadow: 0 10px 26px rgba(20, 33, 58, .06);
+  min-height: 235px;
+  padding: 28px;
+}
+
+.personal-coverage .coverage-card:first-child,
+.homepage-coverage.personal-coverage .coverage-card:first-child {
+  background: var(--paper);
+  border-color: transparent;
+  color: var(--ink);
+}
+
+.personal-coverage .coverage-card:hover {
+  border-color: rgba(184, 137, 74, .5);
+  box-shadow: 0 16px 32px rgba(20, 33, 58, .12);
+  transform: translateY(-3px);
+}
+
+.personal-coverage .coverage-card .eyebrow {
+  color: var(--blue);
+  font-size: 10px;
+  letter-spacing: .08em;
+}
+
+.personal-coverage .coverage-card h3 {
+  font-size: clamp(1.4rem, 2vw, 1.9rem);
+  margin: 12px 0 16px;
+}
+
+.personal-coverage .coverage-context,
+.personal-coverage .coverage-meta,
+.personal-coverage .coverage-card time {
+  color: var(--muted);
+  font-size: 12px;
+}
+
+.personal-themes .section-head h2 {
+  max-width: 17ch;
+}
+
+.personal-themes .focus-grid {
+  gap: 18px;
+}
+
+.personal-themes .focus-grid article,
+.personal-themes .focus-grid article:last-child {
+  background: rgba(255, 255, 255, .06);
+  border: 1px solid rgba(255, 255, 255, .15);
+  border-radius: var(--radius);
+  min-height: 245px;
+  padding: clamp(28px, 3vw, 42px);
+}
+
+.personal-themes .focus-grid h3 {
+  font-size: clamp(1.7rem, 2.35vw, 2.45rem);
+  margin-bottom: 16px;
+}
+
+.personal-themes .focus-grid p {
+  font-size: 15px;
+  max-width: 30ch;
+}
+
+.personal-themes .focus-grid a {
+  letter-spacing: .01em;
+  text-transform: none;
+}
+
+.talk-section .featured-watch {
+  border-radius: var(--radius);
+  display: grid;
+  grid-template-columns: minmax(0, 1.25fr) minmax(280px, .75fr);
+  overflow: hidden;
+}
+
+.talk-section .featured-watch iframe {
+  height: 100%;
+  min-height: 365px;
+}
+
+.talk-section .featured-watch > div {
+  align-self: center;
+  padding: clamp(32px, 5vw, 64px);
+}
+
+.talk-section .featured-watch h3 {
+  font-size: clamp(1.75rem, 2.8vw, 3rem);
+  margin-bottom: 18px;
+}
+
+.moments-section {
+  background: var(--paper-strong);
+  border-block: 1px solid var(--line);
+}
+
+.moments-grid {
+  align-items: center;
+  display: grid;
+  gap: clamp(42px, 8vw, 120px);
+  grid-template-columns: minmax(0, .85fr) minmax(300px, 1.15fr);
+  min-height: 470px;
+}
+
+.moments-grid > div {
+  padding: clamp(58px, 8vw, 110px) 0;
+}
+
+.moments-grid figure {
+  align-self: stretch;
+  margin-right: calc((100vw - min(1240px, calc(100vw - 80px))) / -2);
+}
+
+.moments-grid figure img {
+  height: 100%;
+  min-height: 470px;
+  object-position: center;
+  width: 100%;
 }
 
 .proof-strip {
@@ -597,7 +779,7 @@ nav a:hover, nav a[aria-current] {
 .coverage-card {
   background: var(--white);
   border: 1px solid var(--line);
-  border-radius: 0;
+  border-radius: var(--radius);
   box-shadow: none;
   display: flex;
   flex-direction: column;
@@ -629,6 +811,7 @@ nav a:hover, nav a[aria-current] {
   font-size: 20px;
   line-height: 1.18;
   margin: 9px 0 15px;
+  overflow-wrap: anywhere;
 }
 
 .coverage-card h3 a { color: var(--ink); }
@@ -721,7 +904,7 @@ footer a:hover { color: #fff; }
 footer div.brand > p { display: none; }
 footer div.brand::after {
   color: #bfc9d5;
-  content: "Official website · source-linked public record";
+  content: "Official website of Manasvi Thapar";
   display: block;
   font: 600 10px/1.5 "Public Sans", Arial, sans-serif;
   letter-spacing: .1em;
@@ -879,6 +1062,11 @@ dialog {
   .media-window-grid { grid-template-columns: 1fr; }
   .homepage-coverage { grid-template-columns: repeat(3, 1fr); }
   .homepage-coverage .coverage-card { border-bottom-width: 1px; }
+  .personal-intro-grid { grid-template-columns: minmax(240px, .72fr) minmax(0, 1.28fr); }
+  .personal-intro-grid > div { padding: 56px; }
+  .talk-section .featured-watch { grid-template-columns: 1fr; }
+  .talk-section .featured-watch iframe { min-height: 0; }
+  .moments-grid { gap: 50px; }
   .record-invitation-grid > div { padding: 56px; }
 }
 
@@ -934,6 +1122,19 @@ dialog {
   .focus-grid article:first-child { border-top: 0; }
   .focus-number { margin-bottom: 30px; }
   .homepage-coverage { grid-template-columns: 1fr; }
+  .personal-coverage { grid-template-columns: 1fr; }
+  .personal-coverage .coverage-card,
+  .homepage-coverage.personal-coverage .coverage-card { min-height: 0; padding: 28px 24px; }
+  .personal-intro-grid,
+  .moments-grid { grid-template-columns: 1fr; }
+  .personal-intro figure img { min-height: 380px; max-height: 500px; }
+  .personal-intro-grid > div { padding: 48px 0 56px; }
+  .talk-section .featured-watch iframe { aspect-ratio: 16 / 9; min-height: 0; }
+  .talk-section .featured-watch > div { padding: 30px 25px 34px; }
+  .moments-grid { gap: 0; }
+  .moments-grid > div { padding: 56px 0 42px; }
+  .moments-grid figure { margin-right: 0; }
+  .moments-grid figure img { min-height: 310px; max-height: 410px; }
   .record-invitation-grid { grid-template-columns: 1fr; }
   .record-invitation figure img { min-height: 355px; max-height: 435px; }
   .record-invitation-grid > div { padding: 48px 0; }
