@@ -1163,3 +1163,272 @@ dialog {
     animation-duration: .01ms !important;
   }
 }
+
+/* A quieter, more polished shared frame for the supporting pages. */
+body:not(.home-page) {
+  background: #f5f1e8;
+}
+
+body:not(.home-page).menu-open {
+  overflow: hidden;
+}
+
+body:not(.home-page) .utility {
+  display: none;
+}
+
+body:not(.home-page) header {
+  background: rgba(245, 241, 232, .94);
+  border-bottom: 1px solid rgba(17, 27, 50, .12);
+  box-shadow: none;
+  backdrop-filter: blur(16px);
+}
+
+body:not(.home-page) .header-inner {
+  min-height: 76px;
+}
+
+body:not(.home-page) .brand {
+  color: #111b32;
+  font-size: 17px;
+  letter-spacing: .1em;
+}
+
+body:not(.home-page) .brand small {
+  color: #687184;
+  font-size: 7px;
+  letter-spacing: .17em;
+  margin-top: 6px;
+}
+
+body:not(.home-page) nav {
+  gap: 26px;
+}
+
+body:not(.home-page) nav a {
+  font-size: 11px;
+  letter-spacing: .035em;
+  padding: 30px 0 27px;
+}
+
+body:not(.home-page) nav a:hover,
+body:not(.home-page) nav a[aria-current] {
+  border-color: #d58a46;
+  color: #111b32;
+}
+
+body:not(.home-page) .menu,
+body:not(.home-page) .button {
+  border-radius: 999px;
+}
+
+body:not(.home-page) .menu {
+  min-height: 44px;
+  min-width: 44px;
+}
+
+body:not(.home-page) .page-banner {
+  background:
+    radial-gradient(circle at 86% 22%, rgba(213, 138, 70, .26), transparent 24rem),
+    linear-gradient(115deg, #101b32, #172944);
+  padding: clamp(90px, 11vw, 152px) 0;
+}
+
+body:not(.home-page) .page-banner .eyebrow {
+  color: #edbd7b;
+}
+
+body:not(.home-page) .page-banner h1 {
+  font-size: clamp(3.6rem, 6.1vw, 7rem);
+  letter-spacing: -.055em;
+  max-width: 11ch;
+}
+
+body:not(.home-page) .page-banner p:last-child {
+  color: #d5dbe4;
+  font-size: 17px;
+  line-height: 1.75;
+}
+
+body:not(.home-page) .section {
+  padding-bottom: clamp(76px, 9vw, 132px);
+  padding-top: clamp(76px, 9vw, 132px);
+}
+
+body:not(.home-page) .section-head h2 {
+  color: #111b32;
+  font-size: clamp(2.8rem, 4.4vw, 4.9rem);
+  line-height: .94;
+}
+
+body:not(.home-page) .section-head .eyebrow,
+body:not(.home-page) .coverage-card .eyebrow {
+  color: #a9662b;
+}
+
+body:not(.home-page) .text-link {
+  color: #111b32;
+  font-size: 11px;
+  letter-spacing: .055em;
+  text-transform: uppercase;
+}
+
+body:not(.home-page) .text-link:hover {
+  color: #a9662b;
+}
+
+body:not(.home-page) .coverage-grid:not(.homepage-coverage) {
+  gap: 18px;
+}
+
+body:not(.home-page) .coverage-grid:not(.homepage-coverage) .coverage-card {
+  background: #fffdf9;
+  border: 1px solid rgba(17, 27, 50, .10);
+  border-radius: 12px;
+  box-shadow: 0 12px 28px rgba(17, 27, 50, .055);
+  padding: 29px;
+}
+
+body:not(.home-page) .coverage-grid:not(.homepage-coverage) .coverage-card:hover {
+  border-color: rgba(213, 138, 70, .65);
+  box-shadow: 0 18px 36px rgba(17, 27, 50, .12);
+}
+
+body:not(.home-page) .coverage-card h3 {
+  color: #111b32;
+  font-size: clamp(1.3rem, 1.8vw, 1.85rem);
+  line-height: 1.16;
+}
+
+body:not(.home-page) .coverage-card h3 a {
+  color: #111b32;
+}
+
+body:not(.home-page) .coverage-card h3 a:hover {
+  color: #a9662b;
+}
+
+body:not(.home-page) .gallery-section,
+body:not(.home-page) .journey-section {
+  background: #ece4d7;
+}
+
+body:not(.home-page) .curated-gallery {
+  gap: 14px;
+}
+
+body:not(.home-page) .curated-gallery .photo {
+  border: 0;
+  border-radius: 10px;
+  box-shadow: 0 9px 21px rgba(17, 27, 50, .08);
+}
+
+body:not(.home-page) .profile-note,
+body:not(.home-page) .bio-layout blockquote {
+  background: #ece4d7;
+  border-left-color: #d58a46;
+}
+
+body:not(.home-page) .feed-card,
+body:not(.home-page) .source-record,
+body:not(.home-page) .logo-tile {
+  background: #fffdf9;
+  border-color: rgba(17, 27, 50, .11);
+  border-radius: 12px;
+}
+
+body:not(.home-page) .blue-section {
+  background:
+    radial-gradient(circle at 85% 15%, rgba(213, 138, 70, .18), transparent 24rem),
+    #111b32;
+}
+
+body:not(.home-page) .connect {
+  background:
+    radial-gradient(circle at 86% 30%, rgba(213, 138, 70, .30), transparent 20rem),
+    #111b32;
+  padding: clamp(60px, 8vw, 100px) 0;
+}
+
+body:not(.home-page) .connect .eyebrow {
+  color: #edbd7b;
+}
+
+body:not(.home-page) .connect h2 {
+  font-size: clamp(2.5rem, 4vw, 4.4rem);
+}
+
+body:not(.home-page) footer {
+  background: #0a1222;
+}
+
+@media (max-width: 920px) {
+  body:not(.home-page) .header-inner {
+    min-height: 72px;
+  }
+
+  body:not(.home-page) .menu {
+    align-items: center;
+    display: inline-flex;
+    justify-content: center;
+    padding: 11px 15px;
+  }
+
+  body:not(.home-page) nav {
+    background: #111b32;
+    border: 0;
+    bottom: auto;
+    box-shadow: 0 16px 34px rgba(17, 27, 50, .20);
+    display: flex;
+    gap: 0;
+    height: calc(100dvh - 72px);
+    left: 0;
+    opacity: 0;
+    padding: 16px 24px 26px;
+    pointer-events: none;
+    position: fixed;
+    right: 0;
+    top: 72px;
+    transform: translateY(-10px);
+    transition: opacity 180ms ease, transform 180ms ease;
+    visibility: hidden;
+  }
+
+  body:not(.home-page) nav.open {
+    opacity: 1;
+    pointer-events: auto;
+    transform: translateY(0);
+    visibility: visible;
+  }
+
+  body:not(.home-page) nav a {
+    border-bottom-color: rgba(255, 255, 255, .17);
+    color: #fffdf8;
+    font: 500 1.35rem/1.15 "Libre Bodoni", Georgia, serif;
+    padding: 17px 0;
+  }
+
+  body:not(.home-page) nav a:hover,
+  body:not(.home-page) nav a[aria-current] {
+    border-color: #d58a46;
+    color: #edbd7b;
+  }
+}
+
+@media (max-width: 680px) {
+  body:not(.home-page) .page-banner {
+    padding: 76px 0 82px;
+  }
+
+  body:not(.home-page) .page-banner h1 {
+    font-size: clamp(3rem, 14vw, 4.5rem);
+  }
+
+  body:not(.home-page) .section-head h2 {
+    font-size: clamp(2.65rem, 12vw, 4rem);
+  }
+
+  body:not(.home-page) .coverage-grid:not(.homepage-coverage) .coverage-card {
+    padding: 27px 24px;
+  }
+}

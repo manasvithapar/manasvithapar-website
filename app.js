@@ -12,7 +12,10 @@
   const menu = document.querySelector('.menu');
   const nav = document.querySelector('nav');
   if (!menu || !nav) return;
+  const header = document.querySelector('header');
   menu.textContent = 'Menu';
+  if (!nav.id) nav.id = 'primary-navigation';
+  menu.setAttribute('aria-controls', nav.id);
 
   const primaryLinks = [
     ['/', 'Home'],
@@ -30,19 +33,30 @@
     nav.append(link);
   });
 
-  menu.addEventListener('click', () => {
-    const open = nav.classList.toggle('open');
+  const setMenu = (open, returnFocus = false) => {
+    nav.classList.toggle('open', open);
+    document.body.classList.toggle('menu-open', open);
     menu.setAttribute('aria-expanded', String(open));
     menu.setAttribute('aria-label', open ? 'Close navigation' : 'Open navigation');
     menu.textContent = open ? 'Close' : 'Menu';
+    if (open) nav.querySelector('a')?.focus();
+    if (!open && returnFocus) menu.focus();
+  };
+
+  menu.addEventListener('click', () => setMenu(!nav.classList.contains('open')));
+
+  nav.addEventListener('click', event => {
+    if (event.target.closest('a')) setMenu(false);
   });
 
   document.addEventListener('keydown', event => {
     if (event.key !== 'Escape') return;
-    nav.classList.remove('open');
-    menu.setAttribute('aria-expanded', 'false');
-    menu.textContent = 'Menu';
+    if (nav.classList.contains('open')) setMenu(false, true);
   });
+
+  const updateHeader = () => header?.classList.toggle('is-scrolled', window.scrollY > 12);
+  updateHeader();
+  window.addEventListener('scroll', updateHeader, { passive: true });
 })();
 
 /* Keep retained legacy footers aligned with the personal-site framing. */
