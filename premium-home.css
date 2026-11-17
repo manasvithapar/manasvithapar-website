@@ -1122,3 +1122,35 @@
     transition: none;
   }
 }
+
+/* Additive photo history and mixed-size media; preserve the premium homepage. */
+.home-page .photo-history{background:var(--premium-paper);border-top:1px solid #111b321a}
+.home-page .photo-history .section{padding-block:clamp(72px,9vw,120px)}
+.home-page .history-intro{max-width:34ch;color:var(--premium-muted);font-size:16px;line-height:1.7}
+.home-page .history-list{list-style:none;margin:0 0 40px;padding:0 0 0 28px;border-left:1px solid #111b3230;display:grid;gap:36px}
+.home-page .history-chapter{position:relative;display:grid;grid-template-columns:1fr 1fr;background:#fffdf9;border:1px solid #111b3214;border-radius:14px;overflow:visible}
+.home-page .history-chapter::before{content:"";position:absolute;left:-34px;top:44px;width:10px;height:10px;border-radius:50%;background:var(--premium-accent);box-shadow:0 0 0 5px var(--premium-paper)}
+.home-page .history-chapter figure{position:relative;margin:0;overflow:hidden;border-radius:14px 0 0 14px;min-height:300px}
+.home-page .history-chapter img{width:100%;height:100%;aspect-ratio:32/21;object-fit:cover}
+.home-page .history-chapter figcaption{position:absolute;bottom:0;left:0;right:0;padding:36px 22px 16px;background:linear-gradient(transparent,#111b32e6);color:#fffdf9;font-size:12px}
+.home-page .history-copy{align-self:center;padding:clamp(24px,4vw,52px)}
+.home-page .history-year{display:block;color:#955b29;font:500 clamp(2.7rem,5vw,4.5rem)/1 "Libre Bodoni",Georgia,serif;margin-bottom:20px}
+.home-page .history-copy h3{font-size:clamp(1.8rem,3vw,2.7rem);line-height:1.1;color:var(--premium-ink)}
+.home-page .history-copy p{color:var(--premium-muted);font-size:16px;line-height:1.7;margin-bottom:0}
+.home-page .media-mixed-layout{grid-template-columns:minmax(0,.8fr) minmax(0,1.2fr)}
+.home-page .media-mixed-layout .coverage-card{position:relative;transition:transform 220ms ease,box-shadow 220ms ease}
+.home-page .media-mixed-layout .coverage-card:not(:first-child){border-top:3px solid var(--premium-accent)!important}
+.home-page .media-mixed-layout .coverage-card a:focus-visible{outline:3px solid var(--premium-accent);outline-offset:5px}
+@media(max-width:680px){
+.home-page .history-list{padding-left:20px;gap:26px}
+.home-page .history-chapter{grid-template-columns:minmax(0,1fr)}
+.home-page .history-chapter::before{left:-26px}
+.home-page .history-chapter figure{border-radius:14px 14px 0 0;min-height:0}
+.home-page .history-chapter img{height:230px;aspect-ratio:auto}
+.home-page .history-copy{padding:26px}
+.home-page .media-mixed-layout{grid-template-columns:minmax(0,1fr)}
+}
+@media(prefers-reduced-motion:reduce){
+.home-page .media-mixed-layout .coverage-card{transition:none}
+.home-page .media-mixed-layout .coverage-card:hover{transform:none}
+}
