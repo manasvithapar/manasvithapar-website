@@ -155,3 +155,28 @@
     group.append(link);
   });
 })();
+
+/* One-time photo history reveals; content remains readable without scripting. */
+(() => {
+  const chapters = document.querySelectorAll('.history-chapter');
+  const reduced = matchMedia('(prefers-reduced-motion: reduce)');
+  if (!chapters.length || !('IntersectionObserver' in window) || !Element.prototype.animate) return;
+  const running = new Set();
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      if (!entry.isIntersecting) return;
+      observer.unobserve(entry.target);
+      if (reduced.matches || entry.target.contains(document.activeElement)) return;
+      const animation = entry.target.animate(
+        [{opacity:0,transform:'translateY(20px)'},{opacity:1,transform:'translateY(0)'}],
+        {duration:600,easing:'cubic-bezier(.22,1,.36,1)'}
+      );
+      running.add(animation);
+      animation.finished.then(() => running.delete(animation), () => running.delete(animation));
+    });
+  }, {threshold:.12});
+  chapters.forEach(chapter => observer.observe(chapter));
+  reduced.addEventListener('change', () => {
+    if (reduced.matches) { running.forEach(animation => animation.cancel()); running.clear(); }
+  });
+})();
