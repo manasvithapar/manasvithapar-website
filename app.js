@@ -20,6 +20,7 @@
   const primaryLinks = [
     ['/', 'Home'],
     ['/wiki/', 'About'],
+    ['/speaking/', 'Speaking'],
     ['/media/', 'Media'],
     ['/gallery/', 'Gallery'],
     ['/contact-us/', 'Contact']
@@ -27,7 +28,11 @@
   nav.querySelector('a[href="/initiatives/"]')?.remove();
   nav.querySelector('a[href="/public-profile/"]')?.remove();
   primaryLinks.forEach(([href, label]) => {
-    const link = Array.from(nav.querySelectorAll('a')).find(item => item.getAttribute('href') === href);
+    let link = Array.from(nav.querySelectorAll('a')).find(item => item.getAttribute('href') === href);
+    if (!link && href === '/speaking/') {
+      link = document.createElement('a');
+      link.setAttribute('href', href);
+    }
     if (!link) return;
     link.textContent = label;
     nav.append(link);
