@@ -1,0 +1,15 @@
+/* Speaking page, using the site's existing editorial tokens. */
+.speaking-banner .wrap > p:not(.eyebrow) { color: #e0e7f0; max-width: 44rem; }
+.speaking-actions { display: flex; flex-wrap: wrap; align-items: center; gap: 1rem 1.5rem; margin-top: 1.75rem; }
+.speaking-text-link { color: var(--white); text-decoration: underline; text-underline-offset: .25em; }
+.speaking-section + .speaking-section { border-top: 1px solid var(--line); }
+.speaking-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1rem; }
+.speaking-grid-two { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+.speaking-card { border: 1px solid var(--line); border-radius: var(--radius); background: var(--white); padding: clamp(1.15rem, 2.5vw, 2rem); }
+.speaking-card .eyebrow { margin-bottom: .75rem; }
+.speaking-card p:last-child, .speaking-format .profile-note p:last-child { margin-bottom: 0; }
+.speaking-card a { color: var(--blue); text-decoration: underline; text-underline-offset: .2em; }
+.speaking-format { display: grid; grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr); gap: 1rem 2rem; align-items: center; }
+@media (max-width: 760px) {
+  .speaking-grid, .speaking-grid-two, .speaking-format { grid-template-columns: 1fr; }
+}
