@@ -1,18 +1,11 @@
 {
-  "updated": "2026-11-24T13:58:19.193258+00:00",
+  "updated": "2026-11-25T13:12:23.285473+00:00",
   "sourcesChecked": [
+    "https://news.google.com/rss/search?q=%22Manasvi%20Thapar%22&hl=en-IN&gl=IN&ceid=IN:en",
+    "https://news.google.com/rss/search?q=%22Manasvi%20Thapar%22%20site%3Ayoutube.com&hl=en-IN&gl=IN&ceid=IN:en",
     "https://www.youtube.com/feeds/videos.xml?channel_id=UCWBzJDiiXeg632cU3S3Ei7A"
   ],
-  "sourceErrors": [
-    {
-      "feed": "https://news.google.com/rss/search?q=%22Manasvi%20Thapar%22&hl=en-IN&gl=IN&ceid=IN:en",
-      "error": "HTTP Error 503: Service Unavailable"
-    },
-    {
-      "feed": "https://news.google.com/rss/search?q=%22Manasvi%20Thapar%22%20site%3Ayoutube.com&hl=en-IN&gl=IN&ceid=IN:en",
-      "error": "HTTP Error 503: Service Unavailable"
-    }
-  ],
+  "sourceErrors": [],
   "items": [
     {
       "title": "Manasvi Thapar discusses AI-driven disinformation at Moscow’s Dialog about Fakes 4.0",
